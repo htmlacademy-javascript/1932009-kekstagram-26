@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Дмитрий Орлов](https://up.htmlacademy.ru/javascript/26/user/1932009).
-* Наставник: `Неизвестно`.
+* Студент: [Дмитрий Орлов](https://htmlacademy.ru/profile/dmnorlv).
+* Наставник: [Максим Прусаков](https://htmlacademy.ru/profile/hikikomori).
 
 ---
 
