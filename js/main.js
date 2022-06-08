@@ -16,8 +16,8 @@ const getRandomNumber = (min, max) => {
     return max;
   }
   return 'В переданном диапазоне нет ни одного подходящего числа!';
-}
+};
+getRandomNumber(1,3);
 
-const checkStrokeLength = (stroke, maxLength) => {
-  return (stroke.length <= maxLength);
-}
+const checkStrokeLength = (stroke, maxLength) => (stroke.length <= maxLength);
+checkStrokeLength('test', 4);
