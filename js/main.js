@@ -48,7 +48,7 @@ const createComment = (value, index) => ({
 
 const createObject = (value, index) => ({
   id: index + 1,
-  url: `photos/${ index }.jpg`,
+  url: `photos/${ index+1 }.jpg`,
   description: descriptions[index],
   likes: getRandomNumber(15, 200),
   comments: Array.from({length: getRandomNumber(1, 2)}, createComment),
