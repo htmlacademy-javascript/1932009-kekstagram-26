@@ -29,31 +29,31 @@ checkStrokeLength('test', 4);
 
 //Описания для фото, комментарии, имена авторов комментариев
 
-const descriptions = ['горы', 'лес', 'море', 'деревня', 'луг', 'пляж', 'пасмурный день',
+const DESCRIPTIONS = ['горы', 'лес', 'море', 'деревня', 'луг', 'пляж', 'пасмурный день',
   'горы2', 'лес2', 'море2', 'деревня2', 'луг2', 'пляж2', 'пасмурный день2', 'горы3', 'лес3', 'море3',
   'деревня3', 'луг3', 'пляж3', 'пасмурный день3', 'кустарники', 'березки', 'детская площадка', 'центральный парк'];
 
-const messages = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+const MESSAGES = ['Всё отлично!', 'В целом всё неплохо. Но не всё.', 'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.', 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'];
 
-const names = ['Ваня', 'Петр', 'Сергей', 'Анжела', 'Ольга', 'Кристина'];
+const NAMES = ['Ваня', 'Петр', 'Сергей', 'Анжела', 'Ольга', 'Кристина'];
+
+const getRandomElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
 const createComment = (value, index) => ({
   id: getRandomNumber((index+1)*11, (index+1)*11 + 10),
   avatar: `img/avatar-${  getRandomNumber(1, 6)}`,
-  message: messages[getRandomNumber(0, messages.length - 1)],
-  name: names[getRandomNumber(0, names.length - 1)],
+  message: getRandomElement(MESSAGES),
+  name: getRandomElement(NAMES),
 });
 
 const createObject = (value, index) => ({
   id: index + 1,
   url: `photos/${ index+1 }.jpg`,
-  description: descriptions[index],
+  description: DESCRIPTIONS[index],
   likes: getRandomNumber(15, 200),
-  comments: Array.from({length: getRandomNumber(1, 2)}, createComment),
+  comments: Array.from({length: getRandomNumber(1, 5)}, createComment),
 });
 
 const objectsArray = Array.from({length: 25}, createObject);
-// eslint-disable-next-line no-console
-console.log(objectsArray);
