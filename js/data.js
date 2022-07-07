@@ -19,8 +19,6 @@ const MESSAGES = ['Всё отлично!', 'В целом всё неплохо
 
 const NAMES = ['Ваня', 'Петр', 'Сергей', 'Анжела', 'Ольга', 'Кристина'];
 
-const OBJECTS_COUNT = 25;
-
 // Создание комментария
 
 const createComment = (value, index) => ({
@@ -42,6 +40,6 @@ const createObject = (value, index) => ({
 
 // Создание массива сгенерированных объектов
 
-const createObjects = () => Array.from({length: OBJECTS_COUNT}, createObject);
+const createObjects = (count) => Array.from({length: count}, createObject);
 
 export {createObjects};
