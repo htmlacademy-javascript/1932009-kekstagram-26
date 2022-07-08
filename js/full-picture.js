@@ -1,19 +1,10 @@
 // Отрисовка окна с полноразмерным изображением
 
 import {miniatures, similarObjects} from './miniatures.js';
+
 const imgWindow = document.querySelector('.big-picture');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
 const buttonClose = imgWindow.querySelector('.big-picture__cancel');
-
-const getUrls = (array) => {
-  const urls = [];
-  for (let i=0; i<array.length; i++) {
-    urls[i] = array[i].querySelector('img').src;
-  }
-  return urls;
-};
-
-const URLS = getUrls(miniatures);
 
 const addComments = (object) => {
   for (let i=0; i<object.comments.length; i++){
@@ -25,12 +16,12 @@ const addComments = (object) => {
   }
 };
 
-const openFullPicture = function(miniature, url, object) {
+const openFullPicture = function(miniature, object) {
   miniature.addEventListener('click', () => {
     imgWindow.classList.remove('hidden');
-    imgWindow.querySelector('.big-picture__img').querySelector('img').src = url;
-    imgWindow.querySelector('.likes-count').textContent = miniature.querySelector('.picture__likes').textContent;
-    imgWindow.querySelector('.comments-count').textContent = miniature.querySelector('.picture__comments').textContent;
+    imgWindow.querySelector('.big-picture__img').querySelector('img').src = object.url;
+    imgWindow.querySelector('.likes-count').textContent = object.likes;
+    imgWindow.querySelector('.comments-count').textContent = object.comments.length;
     imgWindow.querySelector('.social__caption').textContent = object.description;
     imgWindow.querySelector('.social__comment-count').classList.add('hidden');
     imgWindow.querySelector('.comments-loader').classList.add('hidden');
@@ -40,7 +31,7 @@ const openFullPicture = function(miniature, url, object) {
 };
 
 for (let i=0; i<miniatures.length; i++) {
-  openFullPicture(miniatures[i], URLS[i], similarObjects[i]);
+  openFullPicture(miniatures[i], similarObjects[i]);
 }
 
 

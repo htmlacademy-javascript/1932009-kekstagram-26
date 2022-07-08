@@ -26,14 +26,4 @@ const getRandomNumber = (min, max) => {
 // Получение случайного элемента из массива
 const getRandomElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
-// Создание миниатюр из генерируемых данных и добавление их в фрагмент
-const createMiniatures = (objectsArray, template, fragment) => objectsArray.forEach(({url, likes, comments}) => {
-  const pictureElement = template.cloneNode(true);
-  pictureElement.querySelector('.picture__img').src = url;
-  pictureElement.querySelector('.picture__comments').textContent = comments.length;
-  pictureElement.querySelector('.picture__likes').textContent = likes;
-
-  fragment.appendChild(pictureElement);
-});
-
-export {getRandomElement, getRandomNumber, checkStrokeLength, createMiniatures};
+export {getRandomElement, getRandomNumber, checkStrokeLength};
