@@ -4,5 +4,6 @@
     Настройка скриптов
     ...
 */
-import {createObjects} from './data.js';
-createObjects();
+
+import './miniatures.js';
+import './full-picture.js';

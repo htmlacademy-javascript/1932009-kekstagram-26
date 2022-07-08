@@ -2,7 +2,6 @@
 
 // Сравнение длины строки
 const checkStrokeLength = (stroke, maxLength) => (stroke.length <= maxLength);
-checkStrokeLength('test', 4);
 
 // Получение случайного положительного целого числа
 // источник: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
@@ -23,10 +22,8 @@ const getRandomNumber = (min, max) => {
   }
   return 'В переданном диапазоне нет ни одного подходящего числа!';
 };
-getRandomNumber(1,3);
 
 // Получение случайного элемента из массива
 const getRandomElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
 export {getRandomElement, getRandomNumber, checkStrokeLength};
-
