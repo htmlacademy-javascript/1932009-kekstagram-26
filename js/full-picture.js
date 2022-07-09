@@ -1,6 +1,7 @@
 // Отрисовка окна с полноразмерным изображением
 
 import {miniatures, similarObjects} from './miniatures.js';
+import {isEscapeKey} from './util.js';
 
 const imgWindow = document.querySelector('.big-picture');
 const commentTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
@@ -14,7 +15,14 @@ const addComments = (comments) => comments.forEach((element) => {
   imgWindow.querySelector('.social__comments').append(comment);
 });
 
-const openFullPicture = (miniature, object, comments) => {
+const onImgWindowEscKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeImgWindow();
+  }
+};
+
+const openImgWindow = (miniature, object, comments) => {
   miniature.addEventListener('click', () => {
     imgWindow.querySelector('.big-picture__img').querySelector('img').src = object.url;
     imgWindow.querySelector('.likes-count').textContent = object.likes;
@@ -25,28 +33,25 @@ const openFullPicture = (miniature, object, comments) => {
     document.querySelector('body').classList.add('modal-open');
     addComments(comments);
     imgWindow.classList.remove('hidden');
+
+    document.addEventListener('keydown', onImgWindowEscKeydown);
   });
 };
 
-for (let i=0; i<miniatures.length; i++) {
-  openFullPicture(miniatures[i], similarObjects[i], similarObjects[i].comments);
-}
-
-const closeImgWindow = () => {
+function closeImgWindow () {
   const commentsList = imgWindow.querySelector('.social__comments');
   document.querySelector('body').classList.remove('modal-open');
   imgWindow.classList.add('hidden');
   while (commentsList.firstChild) {
     commentsList.removeChild(commentsList.firstChild);
   }
-};
+  document.removeEventListener('keydown', onImgWindowEscKeydown);
+}
+
+for (let i=0; i<miniatures.length; i++) {
+  openImgWindow(miniatures[i], similarObjects[i], similarObjects[i].comments);
+}
 
 buttonClose.addEventListener('click', () => {
   closeImgWindow();
-});
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape') {
-    closeImgWindow();
-  }
 });
