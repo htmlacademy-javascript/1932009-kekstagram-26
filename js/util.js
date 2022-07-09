@@ -26,4 +26,7 @@ const getRandomNumber = (min, max) => {
 // Получение случайного элемента из массива
 const getRandomElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
-export {getRandomElement, getRandomNumber, checkStrokeLength};
+// Проверка на нажатие Esc
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomElement, getRandomNumber, checkStrokeLength, isEscapeKey};
