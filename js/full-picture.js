@@ -15,7 +15,7 @@ const addComments = (comments) => comments.forEach((element) => {
   imgWindow.querySelector('.social__comments').append(comment);
 });
 
-const onImgWindowEscKeydown = (evt) => {
+const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeImgWindow();
@@ -34,7 +34,7 @@ const openImgWindow = (miniature, object, comments) => {
     addComments(comments);
     imgWindow.classList.remove('hidden');
 
-    document.addEventListener('keydown', onImgWindowEscKeydown);
+    document.addEventListener('keydown', onDocumentKeydown);
   });
 };
 
@@ -45,7 +45,7 @@ function closeImgWindow () {
   while (commentsList.firstChild) {
     commentsList.removeChild(commentsList.firstChild);
   }
-  document.removeEventListener('keydown', onImgWindowEscKeydown);
+  document.removeEventListener('keydown', onDocumentKeydown);
 }
 
 for (let i=0; i<miniatures.length; i++) {
