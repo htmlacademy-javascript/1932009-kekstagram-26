@@ -1,5 +1,5 @@
 // Работа формы загрузки фото
-import {isEscapeKey} from './util.js';
+import {isEscapeKey, checkStrokeLength} from './util.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadWindow = uploadForm.querySelector('.img-upload__overlay');
@@ -50,23 +50,28 @@ const pristine = new Pristine(uploadForm, {
 });
 
 const commentsField = uploadForm.querySelector('#description');
-const validateComments = (value) => value.length < 140;
+// const validateComments = (value) => value.length < 140;
+const validateComments = (value) => checkStrokeLength(value, 140);
 pristine.addValidator(commentsField, validateComments, 'Вы ввели более 140 символов!');
 
 const hashtagsField = uploadForm.querySelector('#hashtags');
 const validateHashtags = (value) => {
   const strings = value.split(' ');
   const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}/;
-  let hashtags = '';
+
+  const findDublicate = (array) => array.some((item) => array.indexOf(item) !== array.lastIndexOf(item));
+
   for (let i=0; i<strings.length; i++) {
     if (strings[i] === '') {
       return true;
     }
     if (re.test(strings[i]) && strings.length <= 5 && !strings.some((string) => string === '')) {
-      if (!hashtags.includes(strings[i])) {
-        hashtags +=  strings[i];
-      } else {
-        return false;     // хэштэги не должны повторяться!
+      const lowStrings = strings.map((string) => string.toLowerCase());
+      if(findDublicate(lowStrings) === true) {
+        return false;      // хэштэги не должны повторяться!
+      }
+      else {
+        return true;    // ОК
       }
     } else {
       return false;     // введены некорректные данные/хэштегов более пяти
