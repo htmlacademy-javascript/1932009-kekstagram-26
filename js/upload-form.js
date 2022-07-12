@@ -62,7 +62,7 @@ const validateHashtags = (value) => {
     if (strings[i] === '') {
       return true;
     }
-    if (re.test(strings[i]) && strings.length <= 5) {
+    if (re.test(strings[i]) && strings.length <= 5 && !strings.some((string) => string === '')) {
       if (!hashtags.includes(strings[i])) {
         hashtags +=  strings[i];
       } else {
