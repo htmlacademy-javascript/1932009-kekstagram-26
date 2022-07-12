@@ -56,7 +56,6 @@ pristine.addValidator(commentsField, validateComments, 'Вы ввели боле
 const hashtagsField = uploadForm.querySelector('#hashtags');
 const validateHashtags = (value) => {
   const strings = value.split(' ');
-  console.log(strings);
   const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}/;
   let hashtags = '';
   for (let i=0; i<strings.length; i++) {
@@ -67,19 +66,13 @@ const validateHashtags = (value) => {
       if (!hashtags.includes(strings[i])) {
         hashtags +=  strings[i];
       } else {
-        console.log('хэштэги не должны повторяться!');
-        console.log(hashtags);
-        return false;
+        return false;     // хэштэги не должны повторяться!
       }
     } else {
-      console.log('введены некорректные данные/хэштегов более пяти');
-      console.log(hashtags);
-      return false;
+      return false;     // введены некорректные данные/хэштегов более пяти
     }
   }
-  console.log('OK');
-  console.log(hashtags);
-  return true;
+  return true;      // ОК
 };
 pristine.addValidator(hashtagsField, validateHashtags, 'Введенные данные неверные!');
 
