@@ -5,6 +5,7 @@ const uploadForm = document.querySelector('.img-upload__form');
 const uploadWindow = uploadForm.querySelector('.img-upload__overlay');
 const uploadInput = document.querySelector('#upload-file');
 const closeButton = uploadWindow.querySelector('#upload-cancel');
+const COMMENTS_AMOUNT = 5;
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && typeof evt.target.value !== 'string') {
@@ -17,7 +18,7 @@ const openUploadWindow = () => {
     const file = evt.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onloadend = function () {
+    reader.onloadend = () => {
       uploadWindow.querySelector('.img-upload__preview').querySelector('img').src = reader.result;
     };
     uploadWindow.classList.remove('hidden');
@@ -65,7 +66,7 @@ const validateHashtags = (value) => {
     if (strings[i] === '') {
       return true;
     }
-    if (re.test(strings[i]) && strings.length <= 5 && !strings.some((string) => string === '')) {
+    if (re.test(strings[i]) && strings.length <= COMMENTS_AMOUNT && !strings.some((string) => string === '')) {
       const lowStrings = strings.map((string) => string.toLowerCase());
       if(findDublicate(lowStrings) === true) {
         return false;      // хэштэги не должны повторяться!
