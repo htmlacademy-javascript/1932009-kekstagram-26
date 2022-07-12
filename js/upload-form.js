@@ -7,7 +7,7 @@ const uploadInput = document.querySelector('#upload-file');
 const closeButton = uploadWindow.querySelector('#upload-cancel');
 
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && typeof evt.target.value !== 'string') {
     closeUploadWindow();
   }
 };
@@ -51,11 +51,37 @@ const pristine = new Pristine(uploadForm, {
 
 const commentsField = uploadForm.querySelector('#description');
 const validateComments = (value) => value.length < 140;
-pristine.addValidator(commentsField, validateComments, 'Вы ввели больше 140 символов!');
+pristine.addValidator(commentsField, validateComments, 'Вы ввели более 140 символов!');
 
 const hashtagsField = uploadForm.querySelector('#hashtags');
-const validateHashtags = (value) => value.length > 0;
-pristine.addValidator(hashtagsField, validateHashtags, 'Поле пустое!');
+const validateHashtags = (value) => {
+  const strings = value.split(' ');
+  console.log(strings);
+  const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}/;
+  let hashtags = '';
+  for (let i=0; i<strings.length; i++) {
+    if (strings[i] === '') {
+      return true;
+    }
+    if (re.test(strings[i]) && strings.length <= 5) {
+      if (!hashtags.includes(strings[i])) {
+        hashtags +=  strings[i];
+      } else {
+        console.log('хэштэги не должны повторяться!');
+        console.log(hashtags);
+        return false;
+      }
+    } else {
+      console.log('введены некорректные данные/хэштегов более пяти');
+      console.log(hashtags);
+      return false;
+    }
+  }
+  console.log('OK');
+  console.log(hashtags);
+  return true;
+};
+pristine.addValidator(hashtagsField, validateHashtags, 'Введенные данные неверные!');
 
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
