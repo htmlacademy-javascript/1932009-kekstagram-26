@@ -7,3 +7,4 @@
 
 import './miniatures.js';
 import './full-picture.js';
+import './upload-form.js';

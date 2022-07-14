@@ -676,7 +676,7 @@ main {
 .text {
   margin: 0;
   padding: 0;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 
   text-align: center;
   border: none;
@@ -686,7 +686,6 @@ main {
   width: 450px;
 
   margin: 0 auto;
-  margin-bottom: 20px;
   padding: 5px 10px;
 
   font-family: "Open Sans", "Arial", sans-serif;
@@ -1407,4 +1406,44 @@ main {
 
 .hidden {
   display: none;
+}
+
+.img-upload__field-wrapper {
+  margin-bottom: 20px;
+}
+
+.field--invalid {
+  display: flex;
+  flex-direction: column;
+}
+
+.field__error {
+  margin: 0 auto;
+  margin-top: 2px;
+  color: #e90000;
+  font-weight: 700;
+  font-size: 16px;
+  border: 1px #e90000 solid;
+  width: fit-content;
+  background-color: #000000;
+  padding: 0 4px;
+}
+
+.field__error--hashtags {
+  color: #e90000;
+  font-weight: 700;
+  font-size: 16px;
+  border: 1px #e90000 solid;
+  width: fit-content;
+  background-color: #000000;
+  padding: 0 4px;
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  transform: translateX(-50%);
+}
+
+.field--invalid--hashtags {
+  padding-bottom: 20px;
+  position: relative;
 }
