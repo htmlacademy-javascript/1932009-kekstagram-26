@@ -27,20 +27,15 @@ const createComments = (comments) => comments.forEach((element) => {
 
 const loadComments = (evt) => {
   if (evt.target === buttonLoader) {
-    console.log(publicComments);
     step +=5;
-    console.log(step);
-    if (publicComments.length >= step+5) {
-      commentsAmount += 5;
-      commentsOnScreen.textContent = commentsAmount;
-    }
     for (let i=step; i<step+5 && i<publicComments.length; i++) {
       commentsList.append(publicComments[i]);
-      console.log(i);
+      commentsAmount += 1;
       if (commentsList.children.length === publicComments.length) {
         buttonLoader.classList.add('hidden');
       }
     }
+    commentsOnScreen.textContent = commentsAmount;
   }
 };
 
@@ -61,10 +56,8 @@ const openImgWindow = (miniature, object, comments) => {
     buttonLoader.classList.add('hidden');
     document.querySelector('body').classList.add('modal-open');
     createComments(comments);
-    console.log(publicComments.length);
     for (let i = step; i<5 && i<publicComments.length; i++) {
       commentsList.append(publicComments[i]);
-      console.log(i);
     }
     if (commentsList.children.length === 5) {
       commentsAmount = 5;
@@ -74,7 +67,6 @@ const openImgWindow = (miniature, object, comments) => {
       commentsOnScreen.textContent = commentsAmount;
     }
     commentsBlock.classList.remove('hidden');
-    console.log(publicComments);
     if (publicComments.length > 5) {
       buttonLoader.classList.remove('hidden');
       buttonLoader.addEventListener('click', loadComments);

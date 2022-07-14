@@ -35,7 +35,7 @@ const createObject = (value, index) => ({
   url: `photos/${ index+1 }.jpg`,
   description: DESCRIPTIONS[index],
   likes: getRandomNumber(15, 200),
-  comments: Array.from({length: getRandomNumber(2, 20)}, createComment),
+  comments: Array.from({length: getRandomNumber(1, 25)}, createComment),
 });
 
 // Создание массива сгенерированных объектов
