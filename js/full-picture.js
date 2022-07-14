@@ -25,6 +25,25 @@ const createComments = (comments) => comments.forEach((element) => {
   // imgWindow.querySelector('.social__comments').append(comment);
 });
 
+const loadComments = (evt) => {
+  if (evt.target === buttonLoader) {
+    console.log(publicComments);
+    step +=5;
+    console.log(step);
+    if (publicComments.length >= step+5) {
+      commentsAmount += 5;
+      commentsOnScreen.textContent = commentsAmount;
+    }
+    for (let i=step; i<step+5 && i<publicComments.length; i++) {
+      commentsList.append(publicComments[i]);
+      console.log(i);
+      if (commentsList.children.length === publicComments.length) {
+        buttonLoader.classList.add('hidden');
+      }
+    }
+  }
+};
+
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -58,22 +77,7 @@ const openImgWindow = (miniature, object, comments) => {
     console.log(publicComments);
     if (publicComments.length > 5) {
       buttonLoader.classList.remove('hidden');
-      buttonLoader.addEventListener('click', () => {
-        console.log(publicComments);
-        step +=5;
-        console.log(step);
-        if (publicComments.length >= step+5) {
-          commentsAmount += 5;
-          commentsOnScreen.textContent = commentsAmount;
-        }
-        for (let i=step; i<step+5 && i<publicComments.length; i++) {
-          commentsList.append(publicComments[i]);
-          console.log(i);
-          if (commentsList.children.length === publicComments.length) {
-            buttonLoader.classList.add('hidden');
-          }
-        }
-      });
+      buttonLoader.addEventListener('click', loadComments);
     }
     imgWindow.classList.remove('hidden');
 
