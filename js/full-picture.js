@@ -22,7 +22,6 @@ const createComments = (comments) => comments.forEach((element) => {
   comment.querySelector('.social__picture').alt = element.name;
   comment.querySelector('.social__text').textContent = element.message;
   publicComments.push(comment);
-  // imgWindow.querySelector('.social__comments').append(comment);
 });
 
 const loadComments = (evt) => {
@@ -31,11 +30,11 @@ const loadComments = (evt) => {
     for (let i=step; i<step+5 && i<publicComments.length; i++) {
       commentsList.append(publicComments[i]);
       commentsAmount += 1;
-      if (commentsList.children.length === publicComments.length) {
-        buttonLoader.classList.add('hidden');
-      }
     }
-    commentsOnScreen.textContent = commentsAmount;
+  }
+  commentsOnScreen.textContent = commentsAmount;
+  if (commentsList.children.length === publicComments.length) {
+    buttonLoader.classList.add('hidden');
   }
 };
 
@@ -59,13 +58,8 @@ const openImgWindow = (miniature, object, comments) => {
     for (let i = step; i<5 && i<publicComments.length; i++) {
       commentsList.append(publicComments[i]);
     }
-    if (commentsList.children.length === 5) {
-      commentsAmount = 5;
-      commentsOnScreen.textContent = commentsAmount;
-    } else {
-      commentsAmount = object.comments.length;
-      commentsOnScreen.textContent = commentsAmount;
-    }
+    commentsAmount = commentsList.children.length === 5 ? 5 : object.comments.length;
+    commentsOnScreen.textContent = commentsAmount;
     commentsBlock.classList.remove('hidden');
     if (publicComments.length > 5) {
       buttonLoader.classList.remove('hidden');
