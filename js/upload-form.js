@@ -57,13 +57,13 @@ pristine.addValidator(commentsField, validateComments, 'Вы ввели боле
 const hashtagsField = uploadForm.querySelector('#hashtags');
 const validateHashtags = (value) => {
   const strings = value.split(' ');
-  const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}/;
+  const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
   const findDublicate = (array) => array.some((item) => array.indexOf(item) !== array.lastIndexOf(item));
   if (strings.every((string) => string === '')) {
     return true;   //если поле пустое - ОК
   }
   for (let i=0; i<strings.length; i++) {
-    if (re.test(strings[i]) && strings[i].length <=20 && strings.length <= COMMENTS_AMOUNT) {
+    if (re.test(strings[i]) && strings.length <= COMMENTS_AMOUNT) {
       const lowStrings = strings.map((string) => string.toLowerCase());
       if(findDublicate(lowStrings) === true) {
         return false;      // хэштэги не должны повторяться

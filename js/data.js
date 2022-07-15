@@ -7,7 +7,7 @@ import {getRandomNumber, getRandomElement} from './util.js';
 //           comments: [{id: 4, avatar: 'img/avatar-6.svg' , message: 'сообщение' , name: 'Артем'},
 //                      {id: 5, avatar: 'img/avatar-7.svg', message: 'сообщение', name: 'Ирина'}] };
 
-// Исходные данные для генерации объекта - описания для фото, комментарии, имена авторов комментариев, кол-во объектов.
+// Исходные данные для генерации объекта - описания для фото, комментарии, имена авторов комментариев.
 
 const DESCRIPTIONS = ['пляж', 'тропа к пляжу', 'море', 'девушка с камерой', 'забавный обед', 'крутая тачка', 'ягодка',
   'морсик', 'самолет пролетел', 'обувное местечко', 'на берегу', 'ауди', 'салатик', 'которолл', 'когда сильно мерзнешь', 'летящий в синеве', 'любимый хор',
@@ -35,7 +35,7 @@ const createObject = (value, index) => ({
   url: `photos/${ index+1 }.jpg`,
   description: DESCRIPTIONS[index],
   likes: getRandomNumber(15, 200),
-  comments: Array.from({length: getRandomNumber(1, 12)}, createComment),
+  comments: Array.from({length: getRandomNumber(1, 25)}, createComment),
 });
 
 // Создание массива сгенерированных объектов
