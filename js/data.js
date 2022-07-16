@@ -23,7 +23,7 @@ const NAMES = ['Ваня', 'Петр', 'Сергей', 'Анжела', 'Ольг
 
 const createComment = (value, index) => ({
   id: getRandomNumber((index+1)*11, (index+1)*11 + 10),
-  avatar: `img/avatar-${  getRandomNumber(1, 6)}.svg`,
+  avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
   message: getRandomElement(MESSAGES),
   name: getRandomElement(NAMES),
 });

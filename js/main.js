@@ -6,5 +6,6 @@
 */
 
 import './miniatures.js';
+import './add-effects.js';
 import './full-picture.js';
 import './upload-form.js';
