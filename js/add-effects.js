@@ -137,19 +137,15 @@ EffectsList.addEventListener('click', onEffectsListClick);
 
 // обработчик изменения масштаба
 const onscaleBlockClick = (evt) => {
-  if (evt.target.classList.value.includes('scale__control--smaller')) {
-    if (scaleInput.value !== MIN_SCALE) {
-      const cuttenValue = scaleInput.value.slice(0, -1);
-      scaleInput.value = `${cuttenValue - SCALE_STEP}%`;
-      img.style.transform = `scale(${(cuttenValue - SCALE_STEP)/100})`;
-    }
+  if (evt.target.classList.value.includes('scale__control--smaller') && scaleInput.value !== MIN_SCALE) {
+    const changedValue = parseInt(scaleInput.value, 10) - SCALE_STEP;
+    scaleInput.value = `${changedValue}%`;
+    img.style.transform = `scale(${changedValue/100})`;
   }
-  if (evt.target.classList.value.includes('scale__control--bigger')) {
-    if (scaleInput.value !== MAX_SCALE) {
-      const cuttenValue = scaleInput.value.slice(0, -1);
-      scaleInput.value = `${Number(cuttenValue) + SCALE_STEP}%`;
-      img.style.transform = `scale(${(Number(cuttenValue) + SCALE_STEP)/100})`;
-    }
+  if (evt.target.classList.value.includes('scale__control--bigger') && scaleInput.value !== MAX_SCALE) {
+    const changedValue = parseInt(scaleInput.value, 10) + SCALE_STEP;
+    scaleInput.value = `${changedValue}%`;
+    img.style.transform = `scale(${changedValue/100})`;
   }
 };
 scaleBlock.addEventListener('click', onscaleBlockClick);
