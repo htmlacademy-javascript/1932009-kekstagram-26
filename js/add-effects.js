@@ -29,10 +29,7 @@ noUiSlider.create(slider, {
   step: 0.1,
   connect: 'lower',
   format: {
-    to: (value) => {
-      const formatedValue =  Number.isInteger(value) ?  value.toFixed(0) :  value.toFixed(1);
-      return formatedValue;
-    },
+    to: (value) => Number.isInteger(value) ?  value.toFixed(0) :  value.toFixed(1),
     from: (value) => parseFloat(value),
   },
 });
