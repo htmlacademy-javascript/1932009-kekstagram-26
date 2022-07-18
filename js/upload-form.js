@@ -1,12 +1,15 @@
 // Работа формы загрузки фото
 import {isEscapeKey, checkStrokeLength} from './util.js';
+import {setDefaultEffects} from './add-effects.js';
 
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadWindow = uploadForm.querySelector('.img-upload__overlay');
 const uploadInput = document.querySelector('#upload-file');
 const closeButton = uploadWindow.querySelector('#upload-cancel');
-const COMMENTS_AMOUNT = 5;
+const uploadImg = uploadWindow.querySelector('.img-upload__preview img');
+const HASHTAGS_AMOUNT = 5;
 
+// Открытие и закрытие формы
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && typeof evt.target.value !== 'string') {
     closeUploadWindow();
@@ -15,11 +18,12 @@ const onDocumentKeydown = (evt) => {
 
 const openUploadWindow = () => {
   uploadInput.addEventListener('change', (evt) => {
+    setDefaultEffects();
     const file = evt.target.files[0];
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onloadend = () => {
-      uploadWindow.querySelector('.img-upload__preview').querySelector('img').src = reader.result;
+      uploadImg.src = reader.result;
     };
     uploadWindow.classList.remove('hidden');
     document.querySelector('body').classList.add('modal-open');
@@ -33,6 +37,7 @@ function closeUploadWindow() {
   uploadWindow.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
   uploadInput.value = '';
+  setDefaultEffects();
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
@@ -41,6 +46,7 @@ closeButton.addEventListener('click', (evt) => {
   closeUploadWindow();
 });
 
+// Валидация формы
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'field--invalid',
@@ -63,7 +69,7 @@ const validateHashtags = (value) => {
     return true;   //если поле пустое - ОК
   }
   for (let i=0; i<strings.length; i++) {
-    if (re.test(strings[i]) && strings.length <= COMMENTS_AMOUNT) {
+    if (re.test(strings[i]) && strings.length <= HASHTAGS_AMOUNT) {
       const lowStrings = strings.map((string) => string.toLowerCase());
       if(findDublicate(lowStrings) === true) {
         return false;      // хэштэги не должны повторяться
