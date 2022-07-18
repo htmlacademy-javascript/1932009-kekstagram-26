@@ -6,7 +6,7 @@ const uploadForm = document.querySelector('.img-upload__form');
 const uploadWindow = uploadForm.querySelector('.img-upload__overlay');
 const uploadInput = document.querySelector('#upload-file');
 const closeButton = uploadWindow.querySelector('#upload-cancel');
-const uploadImg = uploadWindow.querySelector('.img-upload__preview').querySelector('img');
+const uploadImg = uploadWindow.querySelector('.img-upload__preview img');
 const HASHTAGS_AMOUNT = 5;
 
 // Открытие и закрытие формы

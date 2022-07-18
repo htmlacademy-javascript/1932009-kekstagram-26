@@ -30,10 +30,8 @@ noUiSlider.create(slider, {
   connect: 'lower',
   format: {
     to: (value) => {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
+      const formatedValue =  Number.isInteger(value) ?  value.toFixed(0) :  value.toFixed(1);
+      return formatedValue;
     },
     from: (value) => parseFloat(value),
   },
