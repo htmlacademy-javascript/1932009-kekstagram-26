@@ -9,7 +9,7 @@ const buttonLoader = imgWindow.querySelector('.comments-loader');
 const commentsList = imgWindow.querySelector('.social__comments');
 const commentsBlock = document.querySelector('.social__comment-count');
 const commentsOnScreen = commentsBlock.querySelector('.comments-on-screen');
-
+const MAX_LOADED_COMMENTS = 5;
 let publicComments = [];
 let step = 0;
 let commentsAmount;
@@ -23,7 +23,7 @@ const createComments = (comments) => comments.forEach((element) => {
   publicComments.push(comment);
 });
 
-const loadComments = (evt) => {
+const onLoadButtonClick = (evt) => {
   if (evt.target === buttonLoader) {
     step +=5;
     for (let i=step; i<step+5 && i<publicComments.length; i++) {
@@ -45,7 +45,7 @@ const onDocumentKeydown = (evt) => {
 };
 
 const openImgWindow = ({url, likes, description, comments}) => {
-  imgWindow.querySelector('.big-picture__img').querySelector('img').src = url;
+  imgWindow.querySelector('.big-picture__img img').src = url;
   imgWindow.querySelector('.likes-count').textContent = likes;
   imgWindow.querySelector('.comments-count').textContent = comments.length;
   imgWindow.querySelector('.social__caption').textContent = description;
@@ -53,7 +53,7 @@ const openImgWindow = ({url, likes, description, comments}) => {
   buttonLoader.classList.add('hidden');
   document.querySelector('body').classList.add('modal-open');
   createComments(comments);
-  for (let i = step; i<5 && i<publicComments.length; i++) {
+  for (let i = step; i<MAX_LOADED_COMMENTS && i<publicComments.length; i++) {
     commentsList.append(publicComments[i]);
   }
   commentsAmount = commentsList.children.length === 5 ? 5 : comments.length;
@@ -61,7 +61,7 @@ const openImgWindow = ({url, likes, description, comments}) => {
   commentsBlock.classList.remove('hidden');
   if (publicComments.length > 5) {
     buttonLoader.classList.remove('hidden');
-    buttonLoader.addEventListener('click', loadComments);
+    buttonLoader.addEventListener('click', onLoadButtonClick);
   }
   imgWindow.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
