@@ -1,6 +1,5 @@
 // Отрисовка окна с полноразмерным изображением
 
-import {miniatures, similarObjects} from './miniatures.js';
 import {isEscapeKey} from './util.js';
 
 const imgWindow = document.querySelector('.big-picture');
@@ -45,31 +44,29 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const openImgWindow = (miniature, object, comments) => {
-  miniature.addEventListener('click', () => {
-    imgWindow.querySelector('.big-picture__img').querySelector('img').src = object.url;
-    imgWindow.querySelector('.likes-count').textContent = object.likes;
-    imgWindow.querySelector('.comments-count').textContent = object.comments.length;
-    imgWindow.querySelector('.social__caption').textContent = object.description;
-    commentsBlock.classList.add('hidden');
-    buttonLoader.classList.add('hidden');
-    document.querySelector('body').classList.add('modal-open');
-    createComments(comments);
-    for (let i = step; i<5 && i<publicComments.length; i++) {
-      commentsList.append(publicComments[i]);
-    }
-    commentsAmount = commentsList.children.length === 5 ? 5 : object.comments.length;
-    commentsOnScreen.textContent = commentsAmount;
-    commentsBlock.classList.remove('hidden');
-    if (publicComments.length > 5) {
-      buttonLoader.classList.remove('hidden');
-      buttonLoader.addEventListener('click', loadComments);
-    }
-    imgWindow.classList.remove('hidden');
-
-    document.addEventListener('keydown', onDocumentKeydown);
-  });
+const openImgWindow = ({url, likes, description, comments}) => {
+  imgWindow.querySelector('.big-picture__img').querySelector('img').src = url;
+  imgWindow.querySelector('.likes-count').textContent = likes;
+  imgWindow.querySelector('.comments-count').textContent = comments.length;
+  imgWindow.querySelector('.social__caption').textContent = description;
+  commentsBlock.classList.add('hidden');
+  buttonLoader.classList.add('hidden');
+  document.querySelector('body').classList.add('modal-open');
+  createComments(comments);
+  for (let i = step; i<5 && i<publicComments.length; i++) {
+    commentsList.append(publicComments[i]);
+  }
+  commentsAmount = commentsList.children.length === 5 ? 5 : comments.length;
+  commentsOnScreen.textContent = commentsAmount;
+  commentsBlock.classList.remove('hidden');
+  if (publicComments.length > 5) {
+    buttonLoader.classList.remove('hidden');
+    buttonLoader.addEventListener('click', loadComments);
+  }
+  imgWindow.classList.remove('hidden');
+  document.addEventListener('keydown', onDocumentKeydown);
 };
+
 
 function closeImgWindow () {
   document.querySelector('body').classList.remove('modal-open');
@@ -82,10 +79,8 @@ function closeImgWindow () {
   document.removeEventListener('keydown', onDocumentKeydown);
 }
 
-for (let i=0; i<miniatures.length; i++) {
-  openImgWindow(miniatures[i], similarObjects[i], similarObjects[i].comments);
-}
-
 buttonClose.addEventListener('click', () => {
   closeImgWindow();
 });
+
+export {openImgWindow};
