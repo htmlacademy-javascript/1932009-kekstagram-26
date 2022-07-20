@@ -4,8 +4,13 @@
     Настройка скриптов
     ...
 */
-
-import './miniatures.js';
-import './add-effects.js';
-import './full-picture.js';
+import {showAlert} from './util.js';
+import {createMiniatures} from './miniatures.js';
+import {getData} from './api.js';
 import './upload-form.js';
+
+getData(
+  createMiniatures,
+  () => showAlert('Что-то пошло не так!')
+);
+

@@ -161,4 +161,4 @@ const setDefaultEffects = () => {
   checkboxOriginal.checked = true;
 };
 
-export {setDefaultEffects};
+export {setDefaultEffects, sliderBlock};
