@@ -17,9 +17,7 @@ const buttonCloseCompleteMessage = completeMessage.querySelector('.success__butt
 const buttonCloseErrorMessege = errorMessage.querySelector('.error__button');
 const hashtagsField = uploadForm.querySelector('#hashtags');
 const commentsField = uploadForm.querySelector('#description');
-const body = document.querySelector('body');
-
-let file;
+const body = document.body;
 
 const clearTextInputs = () => {
   hashtagsField.value = '';
@@ -27,59 +25,37 @@ const clearTextInputs = () => {
 };
 
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt) && body.querySelector('.success')) {
-    closeCompleteMessage();
-  }
   if (isEscapeKey(evt) && typeof evt.target.value !== 'string' && !body.querySelector('.error') && !body.querySelector('.success')) {
     closeUploadWindow();
   }
-  if (isEscapeKey(evt) && body.querySelector('.error')) {
-    closeErrorMessage();
+  if (isEscapeKey(evt) && (body.querySelector('.success') || body.querySelector('.error'))) {
+    closeMessage();
   }
 };
 
 const onDocumentClick = (evt) => {
-  if (evt.target.matches('.success')) {
-    closeCompleteMessage();
-  }
-  if (evt.target.matches('.error')) {
-    closeErrorMessage();
+  if (evt.target.matches('.success') || evt.target.matches('.error')) {
+    closeMessage();
   }
 };
 
-const showComleteMessage = () => {
-  body.append(completeMessage);
+const showMessage = (message) => {
+  body.append(message);
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onDocumentClick);
 };
 
-function closeCompleteMessage() {
+function closeMessage() {
   body.removeChild(body.lastChild);
-  document.removeEventListener('keydown', onDocumentKeydown);
   document.removeEventListener('click', onDocumentClick);
 }
 
 buttonCloseCompleteMessage.addEventListener('click', () => {
-  closeCompleteMessage();
+  closeMessage();
 });
 
-const showErrorMessage = () => {
-  body.append(errorMessage);
-  uploadWindow.classList.add('hidden');
-  document.addEventListener('click', onDocumentClick);
-  document.addEventListener('keydown', onDocumentKeydown);
-};
-
-function closeErrorMessage() {
-  body.removeChild(body.lastChild);
-  uploadWindow.classList.remove('hidden');
-  uploadInput.files = file;
-  document.removeEventListener('click', onDocumentClick);
-  document.removeEventListener('click', onDocumentClick);
-}
-
 buttonCloseErrorMessege.addEventListener('click', () => {
-  closeErrorMessage();
+  closeMessage();
 });
 
 // Открытие и закрытие формы
@@ -155,11 +131,11 @@ const setUserPictureSubmit = (onSuccess) => {
       sendData(
         () => {
           onSuccess();
-          showComleteMessage();
+          showMessage(completeMessage);
           unblockSubmitButton();
         },
         () => {
-          showErrorMessage();
+          showMessage(errorMessage);
           unblockSubmitButton();
         },
         new FormData(evt.target),
@@ -185,12 +161,8 @@ const openForm = (evt) => {
 
 uploadInput.addEventListener('change', (evt) => {
   if (uploadInput.value !== '') {
-
     setDefaultEffects();
     openForm(evt);
-    file = uploadInput.files;
-  } else {
-    uploadInput.files = file;
   }
 });
 

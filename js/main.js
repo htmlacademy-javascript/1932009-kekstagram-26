@@ -10,6 +10,7 @@ import {getData} from './api.js';
 import './upload-form.js';
 
 getData(
-  (similarObjects) => createMiniatures(similarObjects),
-  () => showAlert('Что-то пошло не так!'),);
+  createMiniatures,
+  () => showAlert('Что-то пошло не так!')
+);
 
