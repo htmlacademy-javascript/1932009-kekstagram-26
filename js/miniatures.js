@@ -7,6 +7,8 @@ const defaultFilterButton = filtersBlock.querySelector('#filter-default');
 const randomFilterButton = filtersBlock.querySelector('#filter-random');
 const discussedFilterButton = filtersBlock.querySelector('#filter-discussed');
 
+filtersBlock.classList.remove('img-filters--inactive');
+
 const compareMiniatures = (miniatureA, miniatureB) => {
   const commentsA = miniatureA.comments.length;
   const commentsB = miniatureB.comments.length;
@@ -62,9 +64,6 @@ const createMiniatures = (objectsArray) => {
     });
 
   picturesSection.appendChild(picturesFragment);
-  // const pictures = picturesSection.querySelectorAll('.picture');
-  // console.log(pictures);
-  filtersBlock.classList.remove('img-filters--inactive');
 };
 
 export {createMiniatures, setFilterClick};
