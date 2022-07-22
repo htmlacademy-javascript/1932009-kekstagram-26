@@ -1,11 +1,5 @@
-/*  main.js - точка входа. задача - подключает и настраивает скрипты на странице.
-    Импорты других модулей
-    Вызовы общих функций
-    Настройка скриптов
-    ...
-*/
 import {showAlert, debounce} from './util.js';
-import {createMiniatures, setFilterClick} from './miniatures.js';
+import {createMiniatures, setFilterClick, filtersBlock} from './miniatures.js';
 import {getData} from './api.js';
 import './upload-form.js';
 
@@ -15,6 +9,7 @@ let objects;
 
 getData(
   (similarObjects) => {
+    filtersBlock.classList.remove('img-filters--inactive');
     createMiniatures(similarObjects);
     objects = similarObjects;
     setFilterClick(debounce(createMiniatures, RERENDER_DELAY), objects);

@@ -9,7 +9,9 @@ const buttonLoader = imgWindow.querySelector('.comments-loader');
 const commentsList = imgWindow.querySelector('.social__comments');
 const commentsBlock = document.querySelector('.social__comment-count');
 const commentsOnScreen = commentsBlock.querySelector('.comments-on-screen');
+
 const MAX_LOADED_COMMENTS = 5;
+
 let publicComments = [];
 let step = 0;
 let commentsAmount;

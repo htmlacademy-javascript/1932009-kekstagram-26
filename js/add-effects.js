@@ -1,12 +1,10 @@
-// Добавление превью изображения эффектов
-
 // блок изменения масштаба, инпут значения масштаба, чекбокс без эффектов, изображение
 const scaleBlock = document.querySelector('.scale');
 const scaleInput = document.querySelector('.scale__control--value');
 const checkboxOriginal = document.querySelector('#effect-none');
 const img = document.querySelector('.img-upload__preview img');
 
-// блок со слайдером, div для отрисовки noUiSlider, скрытый input, список с чекбоксов
+// блок со слайдером, div для отрисовки noUiSlider, скрытый input, список чекбоксов
 const sliderBlock = document.querySelector('.effect-level');
 const slider = sliderBlock.querySelector('.effect-level__slider');
 const slidertInput = sliderBlock.querySelector('.effect-level__value');
