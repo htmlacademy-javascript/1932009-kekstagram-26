@@ -38,13 +38,13 @@ const shuffleArray = (array) => {
 };
 
 // устранение дребезга от Кекса
-function debounce (callback, timeoutDelay = 500) {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
 // Проверка на нажатие Esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
