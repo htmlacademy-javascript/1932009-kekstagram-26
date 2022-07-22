@@ -28,6 +28,24 @@ const getRandomNumber = (min, max) => {
 // Получение случайного элемента из массива
 const getRandomElement = (array) => array[getRandomNumber(0, array.length - 1)];
 
+
+// https://learn.javascript.ru/task/shuffle Перемешивание массива случайным образом
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i>0; i--) {
+    const j = getRandomNumber(0, i);
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+};
+
+// устранение дребезга от Кекса
+const debounce = (callback, timeoutDelay = 500) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
 // Проверка на нажатие Esc
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
@@ -52,4 +70,4 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandomElement, getRandomNumber, checkStrokeLength, isEscapeKey, showAlert};
+export {getRandomElement, getRandomNumber, checkStrokeLength, isEscapeKey, showAlert, shuffleArray, debounce};

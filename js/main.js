@@ -4,13 +4,20 @@
     Настройка скриптов
     ...
 */
-import {showAlert} from './util.js';
-import {createMiniatures} from './miniatures.js';
+import {showAlert, debounce} from './util.js';
+import {createMiniatures, setFilterClick} from './miniatures.js';
 import {getData} from './api.js';
 import './upload-form.js';
 
+const RERENDER_DELAY = 500;
+
+let objects;
+
 getData(
-  createMiniatures,
+  (similarObjects) => {
+    createMiniatures(similarObjects);
+    objects = similarObjects;
+    setFilterClick(debounce(createMiniatures, RERENDER_DELAY), objects);
+  },
   () => showAlert('Что-то пошло не так!')
 );
-
