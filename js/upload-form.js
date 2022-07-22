@@ -1,4 +1,3 @@
-// Работа формы загрузки фото
 import {isEscapeKey, checkStrokeLength} from './util.js';
 import {setDefaultEffects, sliderBlock} from './add-effects.js';
 import {sendData} from './api.js';
@@ -26,7 +25,7 @@ const clearTextInputs = () => {
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt) && typeof evt.target.value !== 'string' && !body.querySelector('.error') && !body.querySelector('.success')) {
-    closeUploadWindow();
+    closeForm();
   }
   if (isEscapeKey(evt) && (body.querySelector('.success') || body.querySelector('.error'))) {
     closeMessage();
@@ -58,8 +57,6 @@ buttonCloseErrorMessege.addEventListener('click', () => {
   closeMessage();
 });
 
-// Открытие и закрытие формы
-
 const blockSubmitbutton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Загрузка...';
@@ -70,7 +67,7 @@ const unblockSubmitButton = () => {
   submitButton.textContent = 'Опубликовать';
 };
 
-function closeUploadWindow() {
+function closeForm() {
   clearTextInputs();
   setDefaultEffects();
   uploadInput.value = '';
@@ -81,10 +78,9 @@ function closeUploadWindow() {
 
 closeButton.addEventListener('click', (evt) => {
   evt.preventDefault();
-  closeUploadWindow();
+  closeForm();
 });
 
-// Валидация формы
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'field--invalid',
@@ -166,4 +162,4 @@ uploadInput.addEventListener('change', (evt) => {
   }
 });
 
-setUserPictureSubmit(closeUploadWindow);
+setUserPictureSubmit(closeForm);
