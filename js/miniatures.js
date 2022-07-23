@@ -38,7 +38,7 @@ const setFilterClick = (cb, objects) => {
   });
 };
 
-const createMiniatures = (objectsArray) => {
+const createMiniatures = (objects) => {
   const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
   const picturesFragment = document.createDocumentFragment();
   const picturesSection = document.querySelector('.pictures');
@@ -46,7 +46,7 @@ const createMiniatures = (objectsArray) => {
   pictures.forEach((picture) => {
     picture.remove();
   });
-  objectsArray
+  objects
     .forEach((object) => {
       const {url, likes, comments} = object;
       const pictureElement = pictureTemplate.cloneNode(true);
