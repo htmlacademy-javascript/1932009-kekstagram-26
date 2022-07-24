@@ -34,6 +34,10 @@ function onDocumentKeydown (evt) {
   }
 }
 
+buttonClose.addEventListener('click', () => {
+  closeImgWindow();
+});
+
 const createComments = (comments) => comments.forEach((element) => {
   const comment = commentTemplate.cloneNode(true);
   comment.querySelector('.social__picture').src = element.avatar;
@@ -78,9 +82,5 @@ const openImgWindow = ({url, likes, description, comments}) => {
   imgWindow.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
 };
-
-buttonClose.addEventListener('click', () => {
-  closeImgWindow();
-});
 
 export {openImgWindow};
