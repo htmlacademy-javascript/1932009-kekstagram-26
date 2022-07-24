@@ -132,7 +132,7 @@ const onEffectsListClick = (evt) => {
 effectsList.addEventListener('click', onEffectsListClick);
 
 // обработчик изменения масштаба
-const onscaleBlockClick = (evt) => {
+const onScaleBlockClick = (evt) => {
   const scaleInputValue = parseInt(scaleInput.value, 10);
   let changedValue;
   if (evt.target.classList.contains('scale__control--smaller') && scaleInput.value !== MIN_SCALE) {
@@ -146,7 +146,7 @@ const onscaleBlockClick = (evt) => {
     img.style.transform = `scale(${changedValue/100})`;
   }
 };
-scaleBlock.addEventListener('click', onscaleBlockClick);
+scaleBlock.addEventListener('click', onScaleBlockClick);
 
 // значение эффектов по умолчанию
 const setDefaultEffects = () => {

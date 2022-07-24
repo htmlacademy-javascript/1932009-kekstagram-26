@@ -16,6 +16,23 @@ let publicComments = [];
 let step = 0;
 let commentsAmount;
 
+const closeImgWindow = () => {
+  document.querySelector('body').classList.remove('modal-open');
+  imgWindow.classList.add('hidden');
+  while (commentsList.firstChild) {
+    commentsList.removeChild(commentsList.firstChild);
+  }
+  step = 0;
+  publicComments = [];
+  document.removeEventListener('keydown', onDocumentKeydown);
+};
+
+function onDocumentKeydown (evt) {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeImgWindow();
+  }
+}
 
 const createComments = (comments) => comments.forEach((element) => {
   const comment = commentTemplate.cloneNode(true);
@@ -39,13 +56,6 @@ const onLoadButtonClick = (evt) => {
   }
 };
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeImgWindow();
-  }
-};
-
 const openImgWindow = ({url, likes, description, comments}) => {
   imgWindow.querySelector('.big-picture__img img').src = url;
   imgWindow.querySelector('.likes-count').textContent = likes;
@@ -55,10 +65,10 @@ const openImgWindow = ({url, likes, description, comments}) => {
   buttonLoader.classList.add('hidden');
   document.querySelector('body').classList.add('modal-open');
   createComments(comments);
-  for (let i = step; i<MAX_LOADED_COMMENTS && i<publicComments.length; i++) {
-    commentsList.append(publicComments[i]);
-  }
-  commentsAmount = commentsList.children.length === 5 ? 5 : comments.length;
+  publicComments.slice(0, 5).forEach((comment) => {
+    commentsList.append(comment);
+  });
+  commentsAmount = commentsList.children.length === MAX_LOADED_COMMENTS ? 5 : comments.length;
   commentsOnScreen.textContent = commentsAmount;
   commentsBlock.classList.remove('hidden');
   if (publicComments.length > 5) {
@@ -68,18 +78,6 @@ const openImgWindow = ({url, likes, description, comments}) => {
   imgWindow.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
 };
-
-
-function closeImgWindow () {
-  document.querySelector('body').classList.remove('modal-open');
-  imgWindow.classList.add('hidden');
-  while (commentsList.firstChild) {
-    commentsList.removeChild(commentsList.firstChild);
-  }
-  step = 0;
-  publicComments = [];
-  document.removeEventListener('keydown', onDocumentKeydown);
-}
 
 buttonClose.addEventListener('click', () => {
   closeImgWindow();
